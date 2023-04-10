@@ -1,0 +1,52 @@
+{
+  "name": "project-name",
+  "version": "0.0.1",
+  "description": "A nice little program.",
+  "author": "John Doe",
+  "license": "UNLICENSED",
+  "private": true,
+  "type": "module",
+  "exports": null,
+  "browser": "./src/app.js",
+  "scripts": {
+    "start": "wds --port 8080 --watch",
+    "stop": "kill-port --port 8080",
+    "launch": "open-cli http://localhost:8080/ --",
+    "watch": "chokidar \"src/**/*.ts\" \"src/**/*.js\" -c \"echo && concurrently -r --group --success command-0 \\\"tsc --noEmit {path}\\\" \\\"eslint {path}\\\" \\\"prettier --check {path}\\\" && node bin/test-file.mjs {path}\"",
+    "test": "npm run typecheck && wtr --coverage --port 8083 && open-cli coverage/lcov-report/index.html",
+    "test:watch": "chokidar \"src/**/*.ts\" \"src/**/*.js\" -c \"node bin/test-file.mjs {path}\"",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "chokidar \"src/**/*.ts\" \"src/**/*.js\" -c \"tsc --noEmit {path}\"",
+    "lint": "eslint . --ignore-path .gitignore && prettier . --check --ignore-path .gitignore",
+    "lint:watch": "chokidar \"src/**/*.ts\" \"src/**/*.js\" -c \"eslint {path}\"",
+    "lint:fix": "npm run format && eslint . --fix --ignore-path .gitignore",
+    "format": "prettier . --write --ignore-path .gitignore",
+    "format:watch": "chokidar \"src/**/*.ts\" \"src/**/*.js\" -c \"prettier --check {path}\"",
+    "clean": "rimraf -g \"dist/*\"",
+    "prebuild": "conc -g -r \"npm run clean %>/dev/null\" \"npm run lint\" \"npm run typecheck\" && npm test",
+    "build": "conc -g -k -r \"esbuild src/app.ts --bundle --minify --drop:debugger --drop:console --sourcemap=inline --target=es2021 --format=esm --outfile=dist/app.js \" \"ncp src/ dist/ --filter=\\\"(?!\\.ts$|\\.test\\.[tj]s$)\\\"\""
+  },
+  "devDependencies": {
+    "@esm-bundle/chai": "^4.3.4-fix.0",
+    "@typescript-eslint/eslint-plugin": "^5.57.1",
+    "@typescript-eslint/parser": "^5.57.1",
+    "@web/dev-server": "^0.1.36",
+    "@web/dev-server-esbuild": "^0.3.4",
+    "@web/test-runner": "^0.15.1",
+    "@web/test-runner-playwright": "^0.9.0",
+    "chokidar-cli": "^3.0.0",
+    "concurrently": "^8.0.1",
+    "eslint": "^8.37.0",
+    "eslint-config-prettier": "^8.8.0",
+    "kill-port": "^2.0.1",
+    "ncp": "^2.0.0",
+    "open-cli": "^7.2.0",
+    "prettier": "^2.8.6",
+    "rimraf": "^4.4.0",
+    "typescript": "^5.0.3"
+  },
+  "prettier": {
+    "trailingComma": "all",
+    "proseWrap": "never"
+  }
+}

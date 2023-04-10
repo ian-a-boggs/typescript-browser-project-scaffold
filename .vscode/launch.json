@@ -1,0 +1,86 @@
+{
+  "configurations": [
+    {
+      "name": "Launch Chrome",
+      "request": "launch",
+      "type": "chrome",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceFolder}",
+      "preLaunchTask": "npm: start"
+    },
+    {
+      "name": "Launch Firefox",
+      "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceRoot}",
+      "reAttach": true,
+      "pathMappings": [
+        {
+          "url": "http://localhost:8080/",
+          "path": "${workspaceFolder}/src/index.ts"
+        }
+      ],
+      "preLaunchTask": "npm: start"
+    },
+    {
+      "name": "Launch Firefox in headless mode",
+      "type": "firefox",
+      "request": "launch",
+      "url": "http://localhost:8080",
+      "webRoot": "${workspaceRoot}",
+      "firefoxArgs": ["-headless"],
+      "pathMappings": [
+        {
+          "url": "http://localhost:8080/",
+          "path": "${workspaceFolder}/src/index.ts"
+        }
+      ],
+      "preLaunchTask": "npm: start"
+    },
+    {
+      "type": "msedge",
+      "name": "Launch Microsoft Edge",
+      "request": "launch",
+      "runtimeArgs": ["--remote-debugging-port=9222"],
+      "url": "http://localhost:8080",
+      "presentation": {
+        "hidden": true
+      },
+      "preLaunchTask": "npm: start"
+    },
+    {
+      "type": "msedge",
+      "name": "Launch Microsoft Edge in headless mode",
+      "request": "launch",
+      "runtimeArgs": ["--headless", "--remote-debugging-port=9222"],
+      "url": "http://localhost:8080",
+      "presentation": {
+        "hidden": true
+      },
+      "preLaunchTask": "npm: start"
+    },
+    {
+      "type": "vscode-edge-devtools.debug",
+      "name": "Open Edge DevTools",
+      "request": "attach",
+      "url": "http://localhost:8080",
+      "presentation": {
+        "hidden": true
+      }
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Launch Edge Headless and attach DevTools",
+      "configurations": [
+        "Launch Microsoft Edge in headless mode",
+        "Open Edge DevTools"
+      ]
+    },
+    {
+      "name": "Launch Edge and attach DevTools",
+      "configurations": ["Launch Microsoft Edge", "Open Edge DevTools"]
+    }
+  ]
+}
