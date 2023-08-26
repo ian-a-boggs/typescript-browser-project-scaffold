@@ -43,7 +43,7 @@ Assuming you already have Node, git, and Visual Studio Code set up:
 
 1. Edit `src/index.html` to update the title element with your project's name.
 
-1. Commit the changes using `` git add . && git commit -m "Customized `package.json`, `README.md`, `LICENSE` & `src/index.html`."  ``.
+1. Commit the changes using `` git add . && git commit -m "Customized \`package.json\`, \`README.md\`, \`LICENSE\` & \`src/index.html\`."  ``.
 
 1. Push the commit using `git push`.
 
